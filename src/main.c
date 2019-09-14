@@ -24,15 +24,14 @@
 void printGrid(){
     int x = 0, y = 0;
     while (y != 24){
-        while (x != 24){
-            printf("\t");
+        while (x != 80){
+            printf(" ");
             x += 1;
         }
+        printf("\n");
         x = 0;
-        printf("\v");
         y += 1;
     }
-    printf("\n");
 }
 
 int main(int argc, char *argv[])
