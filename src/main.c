@@ -20,9 +20,25 @@
  * one-argument format (as described in the handout) is for your own
  * benefit!
  */
+
+void printGrid(){
+    int x = 0, y = 0;
+    while (y != 24){
+        while (x != 24){
+            printf("\t");
+            x += 1;
+        }
+        x = 0;
+        printf("\v");
+        y += 1;
+    }
+    printf("\n");
+}
+
 int main(int argc, char *argv[])
 {
     if (argc >= 2 && argc <= 3){
+        printGrid();
         return 0;
     }
     else if (argc <= 1){
