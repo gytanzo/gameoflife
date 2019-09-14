@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 #include "life.h"
 
@@ -21,5 +22,19 @@
  */
 int main(int argc, char *argv[])
 {
-    return 0;
+    int index = 0;
+    for (index = *argv[index]; index != '\0'; index++){
+        if (argc >= 2 && argc <= 3){
+            puts("Success!");
+            return 0;
+        }
+        else if (argc <= 1) {
+            puts("Error: Invalid input (reason: too few arguments)");
+            return 1;
+        }
+        else {
+            puts("Error: Invalid input (reason: too many arguments)");
+            return 1;
+        }
+    }
 }
