@@ -22,19 +22,15 @@
  */
 int main(int argc, char *argv[])
 {
-    int index = 0;
-    for (index = *argv[index]; index != '\0'; index++){
-        if (argc >= 2 && argc <= 3){
-            puts("Success!");
-            return 0;
-        }
-        else if (argc <= 1) {
-            puts("Error: Invalid input (reason: too few arguments)");
-            return 1;
-        }
-        else {
-            puts("Error: Invalid input (reason: too many arguments)");
-            return 1;
-        }
+    if (argc >= 2 && argc <= 3){
+        return 0;
+    }
+    else if (argc <= 1){
+        puts("Error: Invalid input (Reason: Too few arguments)");
+        return 1;
+    }
+    else {
+        puts("Error: Invalid input (Reason: Too many arguments)");
+        return 1;
     }
 }
