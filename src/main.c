@@ -22,24 +22,34 @@
  */
 
 void printGrid(char *grid){
-    int i = 0;
-    while (i != 1920){ /* There are 1920 grids in an 80x24 grid */
-        grid[i] = 'a'; /* I am using a's to make it more visible */
-        i += 1; 
+    int i = 0, x = 0;
+    while (i != 1944){
+        if (i == 0){
+            grid[i] = 'a';
+            i += 1;
+            x += 1;
+        }
+        if (x == 80){
+            grid[i] = '\n';
+            x = 0;
+            i += 1;
+        }
+        else {
+            grid[i] = 'a';
+            i += 1;
+            x += 1;
+        }
     }
 }
 
-/* This code does indeed print the correct amount of "a"s, at exactly 1920. The problem is I cannot figure out a method to seperate them in to x and y values. 
-Right now, I just get 1920 consecutive a's. */
-
 int main(int argc, char *argv[]){
-    char arr[24][80];
+    char arr[24][81];
     char *grid = &arr[0][0];
     printGrid(grid);
     if (argc >= 2 && argc <= 3){
         int i = 0;
-        while (i != 1920){
-            printf("%c", grid[i]); /* I need to do this to print the grid */
+        while (i != 1944){
+            printf("%c", grid[i]); 
             i += 1;
         }
         return 0;
