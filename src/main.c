@@ -23,22 +23,20 @@
 
 void printGrid(char *grid){
     int i = 0;
-    while (i != 1920){
-        grid[i] = 'a';
-        i += 1;
+    while (i != 1920){ /* There are 1920 grids in an 80x24 grid */
+        grid[i] = 'a'; /* I am using a's to make it more visible */
+        i += 1; 
     }
 }
+
+/* This code does indeed print the correct amount of "a"s, at exactly 1920. The problem is I cannot figure out a method to seperate them in to x and y values.  Right now, I just get 1920 consecutive a's. */
 
 int main(int argc, char *argv[]){
     char arr[24][80];
     char *grid = &arr[0][0];
     printGrid(grid);
     if (argc >= 2 && argc <= 3){
-        int i = 0;
-        while (i != 1920){
-            printf("%c", grid[i]);
-            i += 1;
-        }
+        return 0;
     }
     else if (argc <= 1){
         puts("Error: Invalid input (Reason: Too few arguments)");
