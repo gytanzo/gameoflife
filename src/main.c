@@ -21,24 +21,24 @@
  * benefit!
  */
 
-void printGrid(){
-    int x = 0, y = 0;
-    while (y != 24){
-        while (x != 80){
-            printf(" ");
-            x += 1;
-        }
-        printf("\n");
-        x = 0;
-        y += 1;
+void printGrid(char *grid){
+    int i = 0;
+    while (i != 1920){
+        grid[i] = 'a';
+        i += 1;
     }
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]){
+    char arr[24][80];
+    char *grid = &arr[0][0];
+    printGrid(grid);
     if (argc >= 2 && argc <= 3){
-        printGrid();
-        return 0;
+        int i = 0;
+        while (i != 1920){
+            printf("%c", grid[i]);
+            i += 1;
+        }
     }
     else if (argc <= 1){
         puts("Error: Invalid input (Reason: Too few arguments)");
