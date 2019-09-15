@@ -23,9 +23,9 @@
 
 void printGrid(char *grid){
     int i = 0, x = 0;
-    while (i != 1944){
+    while (i != 1966){
         if (i == 0){
-            grid[i] = 'a';
+            grid[i] = ' ';
             i += 1;
             x += 1;
         }
@@ -35,7 +35,7 @@ void printGrid(char *grid){
             i += 1;
         }
         else {
-            grid[i] = 'a';
+            grid[i] = ' ';
             i += 1;
             x += 1;
         }
@@ -48,9 +48,23 @@ int main(int argc, char *argv[]){
     printGrid(grid);
     if (argc >= 2 && argc <= 3){
         int i = 0;
+        char **matrix = parse_life(argv[1]);
+        int x = 0, y = 0;
         while (i != 1944){
-            printf("%c", grid[i]); 
-            i += 1;
+            while (y != 24){
+                while (x != 80){
+                    char cell = matrix[y][x];
+                    if (cell != grid[i]){
+                        grid[i] = cell;
+                    }
+                    printf("%c", grid[i]);
+                    x += 1;
+                    i += 1;
+                }
+                x = 0;
+                y += 1;
+                i += 1;
+            }
         }
         return 0;
     }
