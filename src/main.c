@@ -74,26 +74,26 @@ int neighborCount(char *grid, int index){
     return neighborCount;
 }
 
-void evolution(char *grid, int index){
+void evolution(char *grid, char *copyGrid, int index){
     int neighbors = neighborCount(grid, index);
     char currentState = grid[index];
     if (currentState == '\n'){
-        grid[index] = '\n';
+        copyGrid[index] = '\n';
     }
     else if (currentState == 'X'){
         if (neighbors == 2 || neighbors == 3){
-            grid[index] = 'X';
+            copyGrid[index] = 'X';
         }
         else {
-            grid[index] = ' ';
+            copyGrid[index] = ' ';
         }
     }
     else if (currentState == ' '){
         if (neighbors == 3){
-            grid[index] = 'X';
+            copyGrid[index] = 'X';
         }
         else {
-            grid[index] = ' ';
+            copyGrid[index] = ' ';
         }
     }
 }
@@ -106,6 +106,10 @@ int main(int argc, char *argv[]){
     char *gridsSecond = &grids[1][0][0];
     int finalGeneration = *argv[2] - '0';
     int y = 0, x = 0;
+
+    char copyArr[24][81];
+    char *copyGrid = &copyArr[0][0];
+    
     printGrid(grid);
     if (argc >= 2 && argc <= 3){
         int i = 0;
@@ -130,7 +134,6 @@ int main(int argc, char *argv[]){
         }
         
         
-        int currentGeneration = 0;
         x = 0;
         y = 0;
 
@@ -152,23 +155,22 @@ int main(int argc, char *argv[]){
             gridsSecond = gridsFirst;
 
             while (j != 1944){
-                evolution(gridsSecond, j);
-                printf("%c", gridsSecond[j]);
+                evolution(gridsFirst, copyGrid, j);
                 j += 1;
             }
 
-            currentGeneration = 1;
+            x = 0;
+            y = 0;
 
-            while (currentGeneration != finalGeneration){
-                gridsFirst = gridsSecond;
-                int k = 0;
-                while(k != 1944){
-                    evolution(gridsSecond, k);
-                    printf("%c", gridsSecond[k]);
-                    k += 1;
+            while (y != 24){
+                while (x != 80){
+                    printf("%c", copyArr[y][x]);
+                    x += 1;
                 }
-                currentGeneration += 1;
+                x = 0;
+                y += 1;
             }
+
         }
         return 0;
     }
