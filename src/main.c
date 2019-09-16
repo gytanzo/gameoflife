@@ -74,20 +74,47 @@ int neighborCount(char *grid, int index){
     return neighborCount;
 }
 
+void evolution(char *grid, int index){
+    int neighbors = neighborCount(grid, index);
+    char currentState = grid[index];
+    if (currentState == '\n'){
+        grid[index] = '\n';
+    }
+    else if (currentState == 'X'){
+        if (neighbors == 2 || neighbors == 3){
+            grid[index] = 'X';
+        }
+        else {
+            grid[index] = ' ';
+        }
+    }
+    else if (currentState == ' '){
+        if (neighbors == 3){
+            grid[index] = 'X';
+        }
+        else {
+            grid[index] = ' ';
+        }
+    }
+}
 
 int main(int argc, char *argv[]){
     char arr[24][81];
     char *grid = &arr[0][0];
+    char grids[2][24][81];
+    char *gridsFirst = &grids[0][0][0];
+    char *gridsSecond = &grids[1][0][0];
+    int y = 0, x = 0;
     printGrid(grid);
     if (argc >= 2 && argc <= 3){
-        int i = 0, x = 0, y = 0;
+        int i = 0;
         char **matrix = parse_life(argv[1]);
         while (i != 1944){
             while (y != 24){
                 while (x != 80){
                     char cell = matrix[y][x];
                     if (grid[i] != cell){
-                        grid[i] = 'X';;
+                        grid[i] = 'X';
                     }
                     printf("%c", grid[i]);
                     x += 1;
@@ -100,13 +127,32 @@ int main(int argc, char *argv[]){
                 i += 1;
             }
         }
+        
+        
+        x = 0;
+        y = 0;
 
-        /* Here is where you are now: You have (hopefully) implemented a working function that correctly determines how
-           many neighbors a particular cell has. In the limited testing you did, it seems to have worked perfectly.
-           The next step is to set up a 3D array as seen in 5.2 so you can output alternating matricies. It is
-           possible (and likely, at a second glance) that you will need to make the printing grid part of your main
-           a helper function to allow you to easily and efficently print multiple consecutive graphs. Just some food
-           for thought. Don't forget to start studying for math! */
+        printGrid(gridsFirst);
+        printGrid(gridsSecond);
+
+        while (y != 24){
+            while (x != 80){
+                grids[0][y][x] = arr[y][x];
+                x += 1;
+            }
+            grids[0][y][x] = '\n';
+            x = 0;
+            y += 1;
+        }
+        
+        int j = 0;
+        gridsSecond = gridsFirst;
+        
+        while (j != 1944){
+            evolution(gridsSecond, j);
+            printf("%c", gridsSecond[j]);
+            j += 1;
+        }
         
         /* For a still block, the coordinates are 930, 931, 1011, and 1012. */
         
