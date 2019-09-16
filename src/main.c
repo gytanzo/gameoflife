@@ -104,6 +104,7 @@ int main(int argc, char *argv[]){
     char grids[2][24][81];
     char *gridsFirst = &grids[0][0][0];
     char *gridsSecond = &grids[1][0][0];
+    int finalGeneration = *argv[2] - '0';
     int y = 0, x = 0;
     printGrid(grid);
     if (argc >= 2 && argc <= 3){
@@ -129,42 +130,53 @@ int main(int argc, char *argv[]){
         }
         
         
+        int currentGeneration = 0;
         x = 0;
         y = 0;
 
         printGrid(gridsFirst);
         printGrid(gridsSecond);
 
-        while (y != 24){
-            while (x != 80){
-                grids[0][y][x] = arr[y][x];
-                x += 1;
+        if (finalGeneration != 0){
+            while (y != 24){
+                while (x != 80){
+                    grids[0][y][x] = arr[y][x];
+                    x += 1;
+                }
+                grids[0][y][x] = '\n';
+                x = 0;
+                y += 1;
             }
-            grids[0][y][x] = '\n';
-            x = 0;
-            y += 1;
+
+            int j = 0;
+            gridsSecond = gridsFirst;
+
+            while (j != 1944){
+                evolution(gridsSecond, j);
+                printf("%c", gridsSecond[j]);
+                j += 1;
+            }
+
+            currentGeneration = 1;
+
+            while (currentGeneration != finalGeneration){
+                gridsFirst = gridsSecond;
+                int k = 0;
+                while(k != 1944){
+                    evolution(gridsSecond, k);
+                    printf("%c", gridsSecond[k]);
+                    k += 1;
+                }
+                currentGeneration += 1;
+            }
         }
-        
-        int j = 0;
-        gridsSecond = gridsFirst;
-        
-        while (j != 1944){
-            evolution(gridsSecond, j);
-            printf("%c", gridsSecond[j]);
-            j += 1;
-        }
-        
-        /* For a still block, the coordinates are 930, 931, 1011, and 1012. */
-        
-        /* Code for part three goes here */
-        
         return 0;
     }
     else if (argc <= 1){
         puts("Error: Invalid input (Reason: Too few arguments)");
         return 1;
     }
-    else {
+    else if (argc >= 3) {
         puts("Error: Invalid input (Reason: Too many arguments)");
         return 1;
     }
