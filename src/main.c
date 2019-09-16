@@ -150,27 +150,33 @@ int main(int argc, char *argv[]){
                 x = 0;
                 y += 1;
             }
+        }
 
-            int j = 0;
-            gridsSecond = gridsFirst;
+        int j = 0;
+        gridsSecond = gridsFirst;
 
+        int currentGeneration = 0;
+
+        while (currentGeneration != finalGeneration){
+            gridsFirst = gridsSecond;
             while (j != 1944){
                 evolution(gridsFirst, copyGrid, j);
                 j += 1;
             }
-
+            
             x = 0;
             y = 0;
 
             while (y != 24){
                 while (x != 80){
-                    printf("%c", copyArr[y][x]);
+                    grids[1][y][x] = copyArr[y][x];
+                    printf("%c", grids[1][y][x]);
                     x += 1;
                 }
                 x = 0;
                 y += 1;
             }
-
+            currentGeneration += 1;
         }
         return 0;
     }
